@@ -40,7 +40,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("12.0.0.0")]
 [assembly: AssemblyFileVersion("12.0.0.0")]
 #endif
-#if SQL2015
+#if SQL2016
 [assembly: AssemblyVersion("13.0.0.0")]
 [assembly: AssemblyFileVersion("13.0.0.0")]
 #endif

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extensions xmlns="http://www.microsoft.com/SqlServer/Dts/Extensions.xsd">
+  <PipelineComponents>
+    <PipelineComponent Identifier="NullDestination" Model=".NET">
+      <CreationName>Martin.SQLServer.Dts.NullDestination, NullDestination, Version=12.0.0.0, Culture=neutral, PublicKeyToken=51c551904274ab44</CreationName>
+    </PipelineComponent>
+  </PipelineComponents>
+</Extensions>
