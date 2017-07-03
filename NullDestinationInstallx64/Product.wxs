@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?define ProductVersion = "0.0.1.0"?>
+  <?define ProductVersion = "0.0.2.0"?>
   <?define UpgradeCode = "D6244571-3BC5-425B-A2AE-652CB37D57BC"?>
   <?define Manufacturer = "Keith Martin"?>
   <?define PackageCode = "*"?>

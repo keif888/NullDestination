@@ -16,6 +16,7 @@ using IDTSVirtualInputColumn = Microsoft.SqlServer.Dts.Pipeline.Wrapper.IDTSVirt
 using IDTSVirtualInput = Microsoft.SqlServer.Dts.Pipeline.Wrapper.IDTSVirtualInput100;
 using IDTSInputColumnCollection = Microsoft.SqlServer.Dts.Pipeline.Wrapper.IDTSInputColumnCollection100;
 using IDTSComponentMetaData = Microsoft.SqlServer.Dts.Pipeline.Wrapper.IDTSComponentMetaData100;
+using IDTSRuntimeConnection = Microsoft.SqlServer.Dts.Pipeline.Wrapper.IDTSRuntimeConnection100;
 
 namespace Martin.SQLServer.Dts
 {
@@ -45,6 +46,7 @@ namespace Martin.SQLServer.Dts
             ComponentMetaData.InputCollection.New();
             // Assign a name.
             ComponentMetaData.InputCollection[0].Name = "TrashInput";
+            ComponentMetaData.InputCollection[0].HasSideEffects = true;
             // Set the contact information.
             ComponentMetaData.ContactInfo = "https://github.com/keif888/NullDestination/";
         }
@@ -74,20 +76,29 @@ namespace Martin.SQLServer.Dts
         /// <returns>The status of the validation</returns>
         public override DTSValidationStatus Validate()
         {
+            bool cancel = false;
             if (ComponentMetaData.InputCollection.Count != 1)
             {
+                ComponentMetaData.FireError(0, ComponentMetaData.Name, "The input collection count is not 1.", String.Empty, 0, out cancel);
                 return DTSValidationStatus.VS_ISCORRUPT;
             }
 
             if (ComponentMetaData.OutputCollection.Count != 0)
             {
+                ComponentMetaData.FireError(0, ComponentMetaData.Name, "The output collection count is not 0.", String.Empty, 0, out cancel);
                 return DTSValidationStatus.VS_ISCORRUPT;
             }
 
             IDTSInput input = ComponentMetaData.InputCollection[0];
             IDTSVirtualInput vInput = input.GetVirtualInput();
-            bool cancel = false;
-            foreach(IDTSInputColumn inputColumn in input.InputColumnCollection)
+
+            if (input.HasSideEffects == false)
+            {
+                ComponentMetaData.FireError(0, ComponentMetaData.Name, "The input does not have HasSideEffects set.", String.Empty, 0, out cancel);
+                return DTSValidationStatus.VS_ISCORRUPT;
+            }
+
+            foreach (IDTSInputColumn inputColumn in input.InputColumnCollection)
             {
                 try
                 {
@@ -100,7 +111,8 @@ namespace Martin.SQLServer.Dts
                     return DTSValidationStatus.VS_NEEDSNEWMETADATA;
                 }
             }
-            return base.Validate();
+            //return base.Validate();
+            return DTSValidationStatus.VS_ISVALID;
         }
 
         /// <summary>
@@ -170,11 +182,11 @@ namespace Martin.SQLServer.Dts
         /// <param name="buffer">The SSIS buffer that contains the data that is supposed to be processed.</param>
         public override void ProcessInput(int inputID, PipelineBuffer buffer)
         {
+            base.ProcessInput(inputID, buffer);
             while(buffer.NextRow())
             {
                 // Do Nothing
             }
         }
-
     }
 }
