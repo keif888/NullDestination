@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?define ProductVersion = "0.0.2.0"?>
+  <?define ProductVersion = "0.0.3.0"?>
   <?define UpgradeCode = "D6244571-3BC5-425B-A2AE-652CB37D57BC"?>
   <?define Manufacturer = "Keith Martin"?>
   <?define PackageCode = "*"?>
@@ -29,69 +29,69 @@
     <UIRef Id="WixUI_Mondo"/>
     <WixVariable Id="WixUILicenseRtf" Value="$(var.NullDestination.ProjectDir)\License.rtf" />
 
-    <Property Id="SSIS64_2016_PATH">
+    <Property Id="SSIS64_2016_PATH" Secure="yes">
       <!-- Value="C:\Program Files\Microsoft SQL Server\130\DTS"> -->
       <RegistrySearch Type="directory" Id="SSIS64_2016_PATH_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\130\SSIS\Setup\DTSPath" Win64="yes"/>
       <RegistrySearch Type="directory" Id="SSIS64_2016_PATH_2" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\130\DTS\Setup" Name="SQLPath" Win64="yes"/>
       <DirectorySearch AssignToProperty="yes" Id="SSIS64_2016_PATH_3" Path="[ProgramFiles64Folder]\Microsoft SQL Server\130\DTS" />
     </Property>
-    <Property Id="SSIS32_2016_PATH">
+    <Property Id="SSIS32_2016_PATH" Secure="yes">
       <!-- Value="C:\Program Files (x86)\Microsoft SQL Server\130\DTS"> -->
       <RegistrySearch Type="directory" Id="SSIS32_2016_PATH_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\130\SSIS\Setup\DTSPath" Win64="no"/>
       <RegistrySearch Type="directory" Id="SSIS32_2016_PATH_2" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\130\DTS\Setup" Name="SQLPath" Win64="no"/>
       <DirectorySearch AssignToProperty="yes" Id="SSIS32_2016_PATH_3" Path="[ProgramFilesFolder]\Microsoft SQL Server\130\DTS" />
     </Property>
-    <Property Id="SSIS64_2014_PATH">
+    <Property Id="SSIS64_2014_PATH" Secure="yes">
       <!-- Value="C:\Program Files\Microsoft SQL Server\120\DTS"> -->
       <RegistrySearch Type="directory" Id="SSIS64_2014_PATH_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\120\SSIS\Setup\DTSPath" Win64="yes"/>
       <RegistrySearch Type="directory" Id="SSIS64_2014_PATH_2" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\120\DTS\Setup" Name="SQLPath" Win64="yes"/>
       <DirectorySearch AssignToProperty="yes" Id="SSIS64_2014_PATH_3" Path="[ProgramFiles64Folder]\Microsoft SQL Server\120\DTS" />
     </Property>
-    <Property Id="SSIS32_2014_PATH">
+    <Property Id="SSIS32_2014_PATH" Secure="yes">
       <!-- Value="C:\Program Files (x86)\Microsoft SQL Server\120\DTS"> -->
       <RegistrySearch Type="directory" Id="SSIS32_2014_PATH_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\120\SSIS\Setup\DTSPath" Win64="no"/>
       <RegistrySearch Type="directory" Id="SSIS32_2014_PATH_2" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\120\DTS\Setup" Name="SQLPath" Win64="no"/>
       <DirectorySearch AssignToProperty="yes" Id="SSIS32_2014_PATH_3" Path="[ProgramFilesFolder]\Microsoft SQL Server\120\DTS" />
     </Property>
-    <Property Id="SSIS64_2012_PATH">
+    <Property Id="SSIS64_2012_PATH" Secure="yes">
       <!-- Value="C:\Program Files\Microsoft SQL Server\110\DTS"> -->
       <RegistrySearch Type="directory" Id="SSIS64_2012_PATH_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\110\SSIS\Setup\DTSPath" Win64="yes"/>
       <RegistrySearch Type="directory" Id="SSIS64_2012_PATH_2" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\110\DTS\Setup" Name="SQLPath" Win64="yes"/>
       <DirectorySearch AssignToProperty="yes" Id="SSIS64_2012_PATH_3" Path="[ProgramFiles64Folder]\Microsoft SQL Server\110\DTS" />
     </Property>
-    <Property Id="SSIS32_2012_PATH">
+    <Property Id="SSIS32_2012_PATH" Secure="yes">
       <!-- Value="C:\Program Files (x86)\Microsoft SQL Server\110\DTS"> -->
       <RegistrySearch Type="directory" Id="SSIS32_2012_PATH_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\110\SSIS\Setup\DTSPath" Win64="no"/>
       <RegistrySearch Type="directory" Id="SSIS32_2012_PATH_2" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\110\DTS\Setup" Name="SQLPath" Win64="no"/>
       <DirectorySearch AssignToProperty="yes" Id="SSIS32_2012_PATH_3" Path="[ProgramFilesFolder]\Microsoft SQL Server\110\DTS" />
     </Property>
 
-    <Property Id="SSIS64_2016">
+    <Property Id="SSIS64_2016" Secure="yes">
       <RegistrySearch Type="raw" Id="SSIS64_2016_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\130\DTS\Setup" Name="Edition" Win64="yes"/>
       <!--<RegistrySearch Type="raw" Id="SSIS64_2016_2" Root="HKCR" Key="IntegrationServices.Package.130" Win64="yes"/> -->
     </Property>
 
-    <Property Id="SSIS32_2016">
+    <Property Id="SSIS32_2016" Secure="yes">
       <RegistrySearch Type="raw" Id="SSIS32_2016_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\130\DTS\Setup" Name="Edition" Win64="no"/>
       <RegistrySearch Type="raw" Id="SSIS32_2016_2" Root="HKCR" Key="IntegrationServices.Package.130" Win64="no"/>
     </Property>
 
-    <Property Id="SSIS64_2014">
+    <Property Id="SSIS64_2014" Secure="yes">
       <RegistrySearch Type="raw" Id="SSIS64_2014_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\120\DTS\Setup" Name="Edition" Win64="yes"/>
       <!--<RegistrySearch Type="raw" Id="SSIS64_2014_2" Root="HKCR" Key="IntegrationServices.Package.120" Win64="yes"/>-->
     </Property>
 
-    <Property Id="SSIS32_2014">
+    <Property Id="SSIS32_2014" Secure="yes">
       <RegistrySearch Type="raw" Id="SSIS32_2014_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\120\DTS\Setup" Name="Edition" Win64="no"/>
       <RegistrySearch Type="raw" Id="SSIS32_2014_2" Root="HKCR" Key="IntegrationServices.Package.120" Win64="no"/>
     </Property>
 
-    <Property Id="SSIS64_2012">
+    <Property Id="SSIS64_2012" Secure="yes">
       <RegistrySearch Type="raw" Id="SSIS64_2012_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\110\DTS\Setup" Name="ProductID" Win64="yes"/>
       <!--<RegistrySearch Type="raw" Id="SSIS64_2012_2" Root="HKCR" Key="IntegrationServices.Package.110" Win64="yes"/>-->
     </Property>
 
-    <Property Id="SSIS32_2012">
+    <Property Id="SSIS32_2012" Secure="yes">
       <RegistrySearch Type="raw" Id="SSIS32_2012_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\110\DTS\Setup" Name="ProductID" Win64="no"/>
       <RegistrySearch Type="raw" Id="SSIS32_2012_2" Root="HKCR" Key="IntegrationServices.Package.110" Win64="no"/>
     </Property>
