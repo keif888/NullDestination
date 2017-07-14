@@ -1,8 +1,10 @@
-# SQL Server Metadata Toolkit
+# Null Destination
 
 # Project Description
 
-MSDN's SQL 2005 tool kit updated to 2008, 2012 and 2014 for detecting metadata in SQL Server, SSIS, SSRS and SSAS.
+An SSIS destination that receives any records and just ignores them.
+
+Useful for testing packages, or when you just want to throw away all the output.
 
 
 # Release Notes
