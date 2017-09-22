@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?define ProductVersion = "0.0.3.0"?>
+  <?define ProductVersion = "0.0.4.0"?>
   <?define UpgradeCode = "06AA2844-998D-4474-8FDF-F3345A7AE175"?>
   <?define Manufacturer = "Keith Martin"?>
   <?define PackageCode = "*"?>
@@ -29,6 +29,12 @@
     <UIRef Id="WixUI_Mondo"/>
     <WixVariable Id="WixUILicenseRtf" Value="$(var.NullDestination.ProjectDir)\License.rtf" />
 
+    <Property Id="SSIS32_2017_PATH" Secure="yes">
+      <!-- Value="C:\Program Files (x86)\Microsoft SQL Server\130\DTS"> -->
+      <RegistrySearch Type="directory" Id="SSIS32_2017_PATH_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\130\SSIS\Setup\DTSPath" Win64="no"/>
+      <RegistrySearch Type="directory" Id="SSIS32_2017_PATH_2" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\130\DTS\Setup" Name="SQLPath" Win64="no"/>
+      <DirectorySearch AssignToProperty="yes" Id="SSIS32_2017_PATH_3" Path="[ProgramFilesFolder]\Microsoft SQL Server\130\DTS" />
+    </Property>
     <Property Id="SSIS32_2016_PATH" Secure="yes">
       <!-- Value="C:\Program Files (x86)\Microsoft SQL Server\130\DTS"> -->
       <RegistrySearch Type="directory" Id="SSIS32_2016_PATH_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\130\SSIS\Setup\DTSPath" Win64="no"/>
@@ -46,6 +52,11 @@
       <RegistrySearch Type="directory" Id="SSIS32_2012_PATH_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\110\SSIS\Setup\DTSPath" Win64="no"/>
       <RegistrySearch Type="directory" Id="SSIS32_2012_PATH_2" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\110\DTS\Setup" Name="SQLPath" Win64="no"/>
       <DirectorySearch AssignToProperty="yes" Id="SSIS32_2012_PATH_3" Path="[ProgramFilesFolder]\Microsoft SQL Server\110\DTS" />
+    </Property>
+
+    <Property Id="SSIS32_2017" Secure="yes">
+      <RegistrySearch Type="raw" Id="SSIS32_2017_1" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft SQL Server\130\DTS\Setup" Name="Edition" Win64="no"/>
+      <RegistrySearch Type="raw" Id="SSIS32_2017_2" Root="HKCR" Key="IntegrationServices.Package.130" Win64="no"/>
     </Property>
 
     <Property Id="SSIS32_2016" Secure="yes">
@@ -68,7 +79,13 @@
     </Condition>
 
     <Directory Id="TARGETDIR" Name="SourceDir">
-      
+
+      <Directory Id="GAC2017" Name="GAC2017">
+        <Component Id="SQL2017GAC" Guid="A17D6056-C38E-411C-2017-3C53283F78BD">
+          <File Id="SQL2017DLLGAC" Name="$(var.NullDestination2017.TargetFileName)" Source="$(var.NullDestination2017.TargetPath)" Assembly=".net" KeyPath="yes" Checksum="yes"/>
+        </Component>
+      </Directory>
+
       <Directory Id="GAC2016" Name="GAC2016">
         <Component Id="SQL2016GAC" Guid="A17D6056-C38E-411C-9AFF-3C53283F78BD">
           <File Id="SQL2016DLLGAC" Name="$(var.NullDestination2016.TargetFileName)" Source="$(var.NullDestination2016.TargetPath)" Assembly=".net" KeyPath="yes" Checksum="yes"/>
@@ -85,6 +102,22 @@
         <Component Id="SQL2012GAC" Guid="03F16F6D-7013-4EAB-995C-BC3059659DC3">
           <File Id="SQL2012DLLGAC" Name="$(var.NullDestination2012.TargetFileName)" Source="$(var.NullDestination2012.TargetPath)" Assembly=".net" KeyPath="yes" Checksum="yes"/>
         </Component>
+      </Directory>
+
+      <Directory Id="SSIS32_2017_PATH" Name="SSIS32_2017_PATH">
+        <Directory Id="SQL2017x32Pipeline" Name="PipelineComponents">
+          <Component Id="SQL2017x32DLL" Guid="53C11247-D90D-43E6-2017-F1972381279C" Win64="no">
+            <File Id="SQL2017x32DLLFile" Name="$(var.NullDestination2017.TargetFileName)" Source="$(var.NullDestination2017.TargetPath)"  Checksum="yes"/>
+          </Component>
+        </Directory>
+        <Directory Id="SQL2017x32Upgrade" Name="UpgradeMappings">
+          <Component Id="SQL2017x32UpgradeMapping" Guid="B13196E0-1C72-4413-2017-20F0FB23C4FD" Win64="no">
+            <File Id="SQL2017x32UpgradeFile" Name="NullDestination.xml" Source="$(var.NullDestination2017.ProjectDir)\NullDestination.xml" Checksum="yes"/>
+          </Component>
+          <Component Id="SQL2017x32UpgradeMappingExtension" Guid="250C57CF-92F7-47D3-2017-81D79B7F3DA1" Win64="no">
+            <File Id="SQL2017x32UpgradeFileExtension" Name="NullDestination.extensions.xml" Source="$(var.NullDestination2017.ProjectDir)\NullDestination.extensions.xml" Checksum="yes"/>
+          </Component>
+        </Directory>
       </Directory>
 
       <Directory Id="SSIS32_2016_PATH" Name="SSIS32_2016_PATH">
@@ -129,6 +162,16 @@
     </Directory>
 
     <Feature Id="Complete" Level="1" Title="Null Destination Installer" Description="An SSIS Component to provide a desitnation that just ignores all the records." Display="expand">
+      <Feature Id="SQL2017" Level="1" Title="SQL 2017">
+        <Feature Id="SQL2017x32" Level="1" Title="x86" ConfigurableDirectory="SSIS32_2017_PATH">
+          <ComponentRef Id="SQL2017x32DLL"/>
+          <ComponentRef Id="SQL2017x32UpgradeMapping"/>
+          <ComponentRef Id="SQL2017x32UpgradeMappingExtension"/>
+          <Condition Level="1004">NOT SSIS32_2017</Condition>
+        </Feature>
+        <ComponentRef Id="SQL2017GAC" />
+        <Condition Level="1004">NOT (SSIS32_2017)</Condition>
+      </Feature>
       <Feature Id="SQL2016" Level="1" Title="SQL 2016">
         <Feature Id="SQL2016x32" Level="1" Title="x86" ConfigurableDirectory="SSIS32_2016_PATH">
           <ComponentRef Id="SQL2016x32DLL"/>
@@ -162,7 +205,7 @@
     <!-- Display a Warning dialog box IF SSIS isn't detected-->
     <UI>
       <InstallUISequence>
-        <Show Dialog="SSISWarning" Before="ResumeDlg">NOT Installed AND NOT (SSIS64_2016 OR SSIS32_2016 OR SSIS64_2014 OR SSIS32_2014 OR SSIS64_2012 OR SSIS32_2012)</Show>
+        <Show Dialog="SSISWarning" Before="ResumeDlg">NOT Installed AND NOT (SSIS32_2017 OR SSIS32_2016 OR SSIS32_2014 OR SSIS32_2012)</Show>
       </InstallUISequence>
       <Dialog Id="SSISWarning" Width="200" Height="100">
         <Control Type="Text" Id="text1" Width="194" Height="14" X="4" Y="8" Text="SQL Server Integration Services was not detected" />

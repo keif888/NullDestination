@@ -46,6 +46,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\NullDestination2017\NullDestination2017.csproj">
+      <Name>NullDestination2017</Name>
+      <Project>{20be4741-84ae-47b4-2017-25d54f15d6ce}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\NullDestination\NullDestination.csproj">
       <Name>NullDestination</Name>
       <Project>{8b4249cf-ed23-48c8-87d3-4457e1b335db}</Project>

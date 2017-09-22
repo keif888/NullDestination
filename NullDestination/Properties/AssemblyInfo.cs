@@ -44,3 +44,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("13.0.0.0")]
 [assembly: AssemblyFileVersion("13.0.0.0")]
 #endif
+#if SQL2017
+[assembly: AssemblyVersion("14.0.0.0")]
+[assembly: AssemblyFileVersion("14.0.0.0")]
+#endif
