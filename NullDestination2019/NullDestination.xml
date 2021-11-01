@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mappings xmlns="http://www.microsoft.com/SqlServer/Dts/UpgradeMapping.xsd">
+
+  <!--  
+		SSIS Null Destination Upgrade Mappings
+		Copyright © 2017 Keith Martin 
+		%ProgramFiles%\Microsoft SQL Server\130\DTS\UpgradeMappings\
+		Upgrade mapping to SQL Server 2017.
+	-->
+
+  <ExtensionMapping
+		tag="SSIS Null Destination 2012"
+		oldAssemblyStrongName="NullDestination, Version=11.0.0.0, Culture=neutral, PublicKeyToken=51c551904274ab44"
+		newAssemblyStrongName="NullDestination, Version=15.0.0.0, Culture=neutral, PublicKeyToken=51c551904274ab44"
+		/>
+  <ExtensionMapping
+		tag="SSIS Null Destination 2014"
+		oldAssemblyStrongName="NullDestination, Version=12.0.0.0, Culture=neutral, PublicKeyToken=51c551904274ab44"
+		newAssemblyStrongName="NullDestination, Version=15.0.0.0, Culture=neutral, PublicKeyToken=51c551904274ab44"
+		/>
+  <ExtensionMapping
+		tag="SSIS Null Destination 2016"
+		oldAssemblyStrongName="NullDestination, Version=13.0.0.0, Culture=neutral, PublicKeyToken=51c551904274ab44"
+		newAssemblyStrongName="NullDestination, Version=15.0.0.0, Culture=neutral, PublicKeyToken=51c551904274ab44"
+		/>
+  <ExtensionMapping
+		tag="SSIS Null Destination 2017"
+		oldAssemblyStrongName="NullDestination, Version=14.0.0.0, Culture=neutral, PublicKeyToken=51c551904274ab44"
+		newAssemblyStrongName="NullDestination, Version=15.0.0.0, Culture=neutral, PublicKeyToken=51c551904274ab44"
+		/>
+</Mappings>
